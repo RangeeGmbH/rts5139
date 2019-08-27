@@ -30,6 +30,17 @@ This ocurred during a transition from ```3.15``` to ```3.16``` kernel, as a resu
 
 `sudo rm -f /etc/modprobe.d/blacklist-rts5139.conf`
 
+## Install with Debian Package
+
+Download following  package and intall with Gdebi.
+
+[rts5139-dkms_1.0_amd64.deb](https://github.com/kelebek333/rts5139-dkms/raw/master/rts5139-dkms_1.0_amd64.deb)
+
+For remove deb package.
+
+`sudo apt purge rts5139-dkms`
+
+
 
 ## License
 GNU General Public License - Version 2, June 1991
