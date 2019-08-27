@@ -6,45 +6,30 @@ This is a temporary fix for RTS5129/RTS5139 USB MMC card reader on Linux 3.16+ k
 
 This ocurred during a transition from ```3.15``` to ```3.16``` kernel, as a result of the ```staging/rts5139``` driver (which worked with the RTS5129/RTS5139) being replaced by the newer ```rtsx``` driver (which does not work with the RTS5129/RTS5139). This project reverts back to the old drivers as a temporary measure to get things up and running again.
 
-## Requirements
 
-- make
-- gcc
-- linux-headers
+## Install Requirements
+
+`sudo apt-get install build-essential git dkms linux-headers-$(uname -r)`
+
 
 ## Building
 
-1. Checkout, build and install the replacement driver.
+`https://github.com/kelebek333/rts5139-dkms`
 
-```
-cd /tmp
-git clone https://github.com/aurorafossorg/rts5139.git
-cd rts5139
-make
-sudo make install
-```
+`sudo dkms add ./rts5139-dkms`
 
-2. Blacklist the problematic modules by adding `blacklist-rts5139.conf`, `blacklist-rts5139-dkms.conf`, or this to `/etc/modprobe.d/`:
+`sudo dkms build rts5139-dkms/1.0`
 
-```
-blacklist rtsx_usb_sdmmc
-blacklist rtsx_usb_ms
-blacklist rtsx_usb
-```
+`sudo dkms install rts5139-dkms/1.0`
 
-3. Then, make sure you generate modules.dep and map files.
+`sudo cp ./rts5139-dkms/blacklist-rts5139.conf /etc/modprobe.d/`
 
-```
-sudo depmod -a
-```
+## Remove
 
-4. Finally, disable module autoloading (and, optionally, also in the initial RAM filesystem)
+`sudo dkms build rts5139-dkms/1.0 --all`
 
-5. Blacklist rtsx mmc modules via kernel parameters.
+`sudo rm -f /etc/modprobe.d/blacklist-rts5139.conf`
 
-6. If wanted/needed, update the initramfs.
-
-7. Reboot, and check to see if the card reader works.
 
 ## License
 GNU General Public License - Version 2, June 1991
