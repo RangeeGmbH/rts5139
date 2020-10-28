@@ -25,7 +25,7 @@
 # Makefile for the RTS51xx USB Card Reader drivers.
 #
 
-KVERSION := $(shell uname -r)
+KVERSION ?= $(shell uname -r)
 
 obj-m := rts5139.o
 
